@@ -1,0 +1,496 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tay McElroy — Portfolio</title>
+    <meta name="description" content="Portfolio of Tay McElroy" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Satisfy&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ===== Base & Theme ===== */
+        :root {
+            --bg: #211A2E;
+            --surface: #262832;
+            --surface-2: #30323F;
+            --text: #E9ECF2;
+            --muted: #9AA1B5;
+            --brand: #4DA6FF; /* playful but professional */
+            --brand-2: #FF7B6B;
+            --ring: 2px solid color-mix(in oklab, var(--brand), white 20%);
+            --radius: 16px;
+            --shadow: 0 1px 2px rgb(0 0 0 / 0.25), 0 8px 24px rgb(0 0 0 / 0.25);
+        }
+
+        @media (prefers-color-scheme: light) {
+            :root {
+                --bg: #fbfbfd;
+                --surface: #ffffff;
+                --surface-2: #f3f4f7;
+                --text: #12141a;
+                --muted: #475166;
+                --shadow: 0 1px 2px rgb(0 0 0 / 0.05), 0 8px 24px rgb(0 0 0 / 0.08);
+            }
+        }
+
+        @media (max-width: 700px) {
+            .intro-inner {
+                flex-direction: column;
+                align-items: center; /* center image + text on mobile */
+                text-align: center; /* optional: center text */
+            }
+
+            .intro-text {
+                text-align: left; /* or keep left-aligned if you prefer */
+            }
+        }
+
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text);
+            background: radial-gradient(1200px 800px at 10% -10%, color-mix(in oklab, var(--brand), transparent 80%), transparent) no-repeat, radial-gradient(900px 600px at 110% 10%, color-mix(in oklab, var(--brand-2), transparent 85%), transparent) no-repeat, var(--bg);
+        }
+
+        a {
+            color: var(--brand);
+            text-decoration: none;
+        }
+
+            a:hover {
+                text-decoration: underline;
+            }
+
+        header {
+            position: sticky;
+            top: 0;
+            backdrop-filter: blur(8px);
+            background: color-mix(in oklab, var(--bg), transparent 15%);
+            border-bottom: 1px solid color-mix(in oklab, var(--muted), transparent 70%);
+            z-index: 10;
+        }
+
+        nav {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 14px 20px;
+        }
+
+            nav a:first-child {
+                font-weight: 800;
+                letter-spacing: .2px;
+                color: var(--text);
+            }
+
+        main {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 20px 96px;
+        }
+
+        section + section {
+            margin-top: 48px;
+        }
+
+        h1 {
+            font-size: clamp(2.2rem, 4vw + 1rem, 3.6rem);
+            font-family: 'Satisfy', cursive;
+            line-height: 1.1;
+            margin: 0 0 8px;
+        }
+
+        h2 {
+            font-size: clamp(1.2rem, 1.2vw + 1rem, 1.6rem);
+            margin: 0 0 12px;
+        }
+
+        h3 {
+            margin: 0 0 6px;
+            font-size: 1.1rem;
+        }
+
+        p {
+            margin: 0 0 12px;
+            color: var(--text);
+        }
+
+        small {
+            color: var(--muted);
+        }
+
+        /* ===== Intro / Hero ===== */
+        #content > section[aria-labelledby="intro-title"] p {
+            max-width: 1100px;
+        }
+
+        .cta-row {
+            display: flex;
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: .5ch;
+            background: var(--brand);
+            color: white;
+            padding: 10px 14px;
+            border-radius: 12px;
+            border: none;
+            box-shadow: none;
+            font-weight: 700;
+        }
+
+            .btn.secondary {
+                background: var(--surface-2);
+                color: var(--text);
+                border: 1px solid color-mix(in oklab, var(--muted), transparent 70%);
+            }
+
+            .btn:focus-visible {
+                outline: none;
+                box-shadow: none;
+            }
+
+        .intro-inner {
+            display: flex;
+            align-items: flex-start; /* align top edges */
+            gap: 24px; /* space between image and text */
+        }
+
+        .intro-img {
+            width: 220px; /* fixed width for image */
+            height: auto;
+            border-radius: 12px; /* optional rounded corners */
+            flex-shrink: 0; /* don’t let image shrink */
+        }
+
+        .intro-text {
+            flex: 1; /* take up remaining space */
+        }
+
+
+        /* ===== Lists ===== */
+
+        .block-section {
+            position: relative;
+            padding: 40px 20px; /* keep your spacing */
+            isolation: isolate; /* ensures the ::before stays behind this section only */
+        }
+
+            .block-section::before {
+                content: "";
+                position: absolute;
+                inset: 0; /* match section’s height */
+                left: 50%;
+                right: 50%;
+                margin-left: -50vw; /* extend to viewport edges */
+                margin-right: -50vw;
+                background: var(--surface-2); /* <-- set your block color/gradient here */
+                z-index: -1; /* sit behind the section content */
+            }
+
+
+        ul.clean {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+            ul.clean li {
+                padding: 10px 0;
+                border-bottom: 1px dashed rgba(233, 236, 242, 0.4);
+            }
+
+                ul.clean li:last-child {
+                    border-bottom: none;
+                }
+
+        /* ===== Cards Grid (Selected Highlights) ===== */
+        .tiles-header {
+            display: flex;
+            align-items: end;
+            gap: 12px;
+            justify-content: space-between;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .card {
+            position: relative;
+            background: linear-gradient(180deg, var(--surface), var(--surface-2));
+            border: 1px solid color-mix(in oklab, var(--muted), transparent 75%);
+            border-radius: var(--radius);
+            padding: 18px;
+            box-shadow: none;
+            overflow: hidden;
+            transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+            isolation: isolate;
+        }
+
+            .card::after {
+                content: "";
+                position: absolute;
+                inset: 0;
+                z-index: -1;
+                background: radial-gradient(600px 200px at -10% -20%, color-mix(in oklab, var(--brand), transparent 85%), transparent), radial-gradient(400px 200px at 120% 10%, color-mix(in oklab, var(--brand-2), transparent 92%), transparent);
+                pointer-events: none;
+            }
+
+            .card:hover {
+                transform: translateY(-3px);
+                box-shadow: none;
+                border-color: color-mix(in oklab, var(--brand), transparent 65%);
+            }
+
+            .card:focus-within {
+                outline: none;
+                box-shadow: none;
+            }
+
+        .card-img-inline {
+            width: 100%;
+            max-height: 300px; /* keeps them even across cards */
+            object-fit: fill;
+            border-radius: 8px; /* softer radius than full card */
+            margin: 10px 0; /* breathing space above/below */
+            display: block;
+        }
+
+        .meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px 10px;
+            margin: 8px 0 4px;
+            color: var(--muted);
+            font-size: .9rem;
+        }
+
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            gap: .5ch;
+            font-size: .75rem;
+            font-weight: 700;
+            letter-spacing: .1px;
+            border: 1px solid color-mix(in oklab, var(--muted), transparent 60%);
+            background: color-mix(in oklab, var(--surface-2), transparent 0%);
+            padding: 4px 8px;
+            border-radius: 999px;
+            color: var(--muted);
+        }
+
+        .card .desc {
+            color: var(--muted);
+            margin: 8px 0 10px;
+        }
+
+        .spacer {
+            flex: 1 1 auto;
+        }
+
+        /* for embedded YouTube video */
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            margin: 12px 0;
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 8px; /* match card style */
+        }
+
+        /* Stretched-link that keeps whole card clickable and accessible */
+        .card a.card-link {
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            z-index: 0;
+        }
+
+            .card a.card-link:focus-visible {
+                outline: none;
+                box-shadow: none;
+            }
+
+        /* Getting rid of empty space below contact section and centering it */
+
+        @supports(selector(main:has(*))) {
+            main:has(> #contact:last-child) {
+                padding-bottom: 0;
+            }
+        }
+
+        #contact > *:last-child {
+            margin-bottom: 0;
+        }
+
+        #contact {
+            text-align: center; /* centers all inline text + links */
+            padding: 40px 20px;
+        }
+
+        /* ===== Footer ===== */
+        footer {
+            max-width: 1100px;
+            margin: 0px auto; /* much smaller spacing above/below */
+            padding: 0px 20px 0px 20px; /* reduce padding */
+            text-align: center; /* optional: center the © line */
+            color: var(--muted);
+            font-size: 0.85rem; /* shrink text a touch */
+        }
+    </style>
+</head>
+<body>
+    <header>
+    </header>
+
+    <main id="content">
+        <!-- HERO -->
+        <section aria-labelledby="intro-title" class="intro">
+            <div class="intro-inner">
+                <!-- Left column: image -->
+                <img src="./images/portrait.png" alt="Portrait of Tay McElroy" class="intro-img">
+
+                <!-- Right column: text -->
+                <div class="intro-text">
+                    <h1 id="intro-title">Tay McElroy.</h1>
+                    <h2>Technical Support Specialist | Game Producer & Project Manager</h2>
+                    <p>Hi! I'm Taylor. As a Platform Support Specialist with a focus on media and live streaming, I specialize in providing expert support while troubleshooting complex technical issues to ensure seamless client experiences. I thrive in environments where creativity and technical know-how intersect, and I aim to make every support interaction effortless and efficient!</p>
+                    <p>With a background in interdisciplinary studies and game development, I approach challenges from multiple perspectives, combining technical expertise with creative problem-solving. My experience spans roles in both platform support and project management, where I’ve honed my skills in collaborative, cross-disciplinary teams and dynamic problem-solving. Previously, as an Admissions Coordinator, I developed strong organizational and process optimization skills, overseeing applicant documentation and streamlining workflows to improve efficiency.</p>
+                    <p>I'm always interested in freelance game development projects, particularly in a production capacity. I’m excited to apply my technical and creative expertise to new collaborations, while continuing to expand my skills in game development and project management!</p>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- NOTABLE EXPERIENCE / HIGHLIGHTS -->
+        <section aria-labelledby="highlights-title" class="block-section">
+            <h2 id="highlights-title">Notable Affiliations & Experience</h2>
+            <ul class="clean">
+                <li><strong>Platform Support Specialist, Subsplash (2024–Present)</strong> – Specializing in livestreaming and media support within a custom SaaS platform.</li>
+                <li><strong>GDC Conference Associate (2024 &amp; 2025)</strong> – Selected for a highly competitive program supporting the world’s largest game developers conference through session management, attendee support, and behind-the-scenes operations.</li>
+                <li><strong>IGDA Foundation Virtual Exchange Grantee (Velocity Cohort, 2023)</strong> – Selected for a competitive program supporting underrepresented developers with mentorship, industry coaching, and career development.</li>
+                <li><strong>Indie Game Academy Level 3 Graduate (2023)</strong> – Completed a game development incubator program, producing and releasing a game in 3 months with a cross-functional team under mentorship from industry experts.</li>
+                <li><strong>Arizona State University (2021)</strong> - Graduated Magna Cum Laude with a B.A. in Interdisciplinary Studies.</li>
+            </ul>
+        </section>
+
+        <!-- SELECTED HIGHLIGHTS (TILES) -->
+        <section aria-labelledby="selected-title">
+            <div class="tiles-header">
+                <h2 id="selected-title">Project Highlights</h2>
+            </div>
+            <div class="grid" role="list">
+
+                <!-- Card 1: Guiding Light -->
+                <article class="card" role="listitem">
+                    <a class="card-link" href="https://candlesticklibrary.itch.io/guiding-light" aria-label="Guiding Light RPG"></a>
+                    <h3>Guiding Light</h3>
+                    <p class="desc">Blind-accessible adventure RPG</p>
+                    <div class="meta">
+                        <span class="chip">Lead Producer</span>
+                        <span class="chip">Unreal Engine 5</span>
+                        <span class="chip">2023</span>
+                    </div>
+                    <div class="video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/IgXmN1g4h-A?si=w7v4rD-jjb44c-Mz"
+                                title="YouTube video player"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <small>As Lead Producer, I managed a team of 8 by facilitating weekly team meetings and preparing meeting agendas, aiding in the effective communication between programmers, level designers, writers, and artists. I assisted in backlog generation and the management of a Kanban board using Miro while regularly communicating with the team to establish project priorities, identify and remove blockers, and keep the project on track.</small>
+                </article>
+
+                <!-- Card 2: Riddle Me Kiss -->
+                <article class="card" role="listitem">
+                    <a class="card-link" href="https://lachapeliere.itch.io/riddle-me-kiss" aria-label="Riddle Me Kiss, Narrative Game Jam"></a>
+                    <h3>Riddle Me Kiss</h3>
+                    <p class="desc">Point-and-click riddle game</p>
+                    <div class="meta">
+                        <span class="chip">Producer</span>
+                        <span class="chip">Unity</span>
+                        <span class="chip">2023</span>
+                    </div>
+                    <img src="./images/riddlemekiss.png" alt="Screenshot of Riddle Me Kiss" class="card-img-inline" />
+                    <small>Created for the Narrative-Driven Game Jam #12, I recruited an international team to create a polished, narrative-focused game with full voiceover and original music in 10 days. I facilitated team meetings, developed and communicated the project plan, and utilized Trello to track tasks. This submission placed 2nd Overall and 1st in Audio!</small>
+                </article>
+
+                <!-- Card 3: Atomic Claws -->
+                <article class="card" role="listitem">
+                    <a class="card-link" href="https://celtican.itch.io/atomic-claws-game" aria-label="Atomic Claws party-based RPG"></a>
+                    <h3>Atomic Claws</h3>
+                    <p class="desc">Narrative-driven, turn-based RPG</p>
+                    <div class="meta">
+                        <span class="chip">Producer</span>
+                        <span class="chip">Unity</span>
+                        <span class="chip">2023</span>
+                    </div>
+                    <img src="./images/atomicclaws.jpg" alt="Screenshot of Atmoic Claws" class="card-img-inline" />
+                    <small>As producer on this project, I facilitated the iterative development of a turn-based RPG over 3 months. I managed tasks and the backlog using Jira, led sprint planning and retrospectives, and monitored team progress and project scope. Additionally, I assisted with editing the writing, co-managed a marketing campaign, and spearheaded community building across various platforms.</small>
+                </article>
+
+                <!-- Card 4: Web App -->
+                <article class="card" role="listitem">
+                    <a class="card-link" href="https://taylorklvg.github.io/Task-Tracker/" aria-label="Task Tracker web app"></a>
+                    <h3>Task Tracker (Web App)</h3>
+                    <p class="desc">A lightweight task-tracking app</p>
+                    <div class="meta">
+                        <span class="chip">Solo developer</span>
+                        <span class="chip">HTML · CSS · JS</span>
+                        <span class="chip">2025</span>
+                    </div>
+                    <img src="./images/tasktracker.png" alt="Screenshot of Task Tracker app" class="card-img-inline" />
+                    <small>I built this Task Tracker to fulfill my own need for a simple productivity tool. I designed and implemented the app using HTML, CSS, and JavaScript, and packaged it with Electron for desktop distribution. Core features include recurring tasks (daily, weekly, monthly), customizable due-date notifications, dark/light mode theming, and persistent local storage. </small>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- CONTACT -->
+        <section id="contact" aria-labelledby="contact-title" class="block-section">
+            <h2 id="contact-title">Get in touch</h2>
+            <p>Email: <a href="mailto:taylor.klvg@gmail.com">taylor.klvg@gmail.com</a></p>
+            <p>LinkedIn: <a href="https://www.linkedin.com/in/taylormmcelroy/">linkedin.com/in/taylormmcelroy</a></p>
+        </section>
+    </main>
+
+    <footer class="block-section">
+        <small>© <span id="year">2025</span> Taylor McElroy</small>
+    </footer>
+
+    <script>
+        // Keep the year current
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
